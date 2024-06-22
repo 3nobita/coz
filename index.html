@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozmoh Pixel</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @font-face {
+            font-family: 'Future-earth';
+            src: url('https://cozmohpixel.com/pixel/fonts/future-earth.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .parallax-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden !important;
+        }
+
+        .parallax {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .parallax-back {
+            background-image: url('https://cozmohpixel.com/pixel/assets/purple_bg.png');
+        }
+
+        .parallax-front {
+            background-image: url('https://cozmohpixel.com/pixel/assets/mountains.png');
+            transform: translateZ(-0.1px) scale(1.2);
+            z-index: 30;
+        }
+
+        .parallax-moon {
+            background-image: url('https://cozmohpixel.com/pixel/assets/glow-moon.png');
+        }
+
+        .parallax-clouds {
+            background-image: url('https://cozmohpixel.com/pixel/assets/clouds.png');
+        }
+
+        .overlay {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+            height: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .hero-text {
+            font-family: 'future-earth', sans-serif;
+            font-size: 13vh;
+            font-weight: 800;
+            line-height: 0.9;
+        }
+
+        .description-text {
+            font-size: 3vh;
+        }
+
+        /* card */
+        h1 {
+            text-align: center;
+        }
+
+        .cards-list {
+            z-index: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            width: 200px;
+            height: 200px;
+            margin: 30px;
+            border-radius: 40px;
+            box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+            transition: 0.4s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card .card_image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 40px;
+        }
+
+        .card_title {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 8px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-radius: 0 0 40px 40px;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .card:hover {
+            transform: scale(0.9, 0.9);
+            box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25), -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+        }
+
+        .title-white {
+            color: white;
+        }
+
+        .title-black {
+            color: black;
+        }
+
+        /* game section */
+        .game-section {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-13deg);
+            transform-origin: top left;
+            position: relative;
+            top: 10em;
+            margin-top: 50px;
+        }
+
+        .scrolling-container {
+            display: flex;
+            overflow-x: hidden;
+            white-space: nowrap;
+            width: 100vw;
+            cursor: grab;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
+        }
+
+        .scrolling-content {
+            display: flex;
+            animation: scroll 40s linear infinite;
+            width: 200%; /* Double the width to account for duplicated items */
+        }
+
+        .item {
+            margin: 0 15px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            background: #343434 no-repeat center center / cover;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+        }
+
+        .item.active {
+            width: 250px;
+            box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .item:after {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media all and (max-width: 768px) {
+            .cards-list {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                margin: 20px 0;
+            }
+
+            .game-section {
+                top: 0;
+                margin-top: 20px;
+                height: auto;
+                transform: none;
+                overflow: hidden;
+                padding: 20px 0;
+            }
+
+            .scrolling-container {
+                width: auto;
+                overflow-x: hidden !important;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE 10+ */
+            }
+
+            .scrolling-container::-webkit-scrollbar {
+                display: none; /* Safari and Chrome */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- hero section -->
+    <section class="parallax-container">
+        <div class="parallax parallax-back"></div>
+        <div class="parallax parallax-moon"></div>
+        <div class="parallax parallax-clouds"></div>
+        <div class="parallax parallax-front"></div>
+        <div class="overlay">
+            <h1 class="hero-text">Website<br>DEVELOPMENT</h1>
+            <p class="description-text">Technology made accessible to Businesses</p>
+        </div>
+    </section>
+
+    <!-- card section -->
+    <div class="wordpress">
+        <h1 class="WP">Wordpress</h1>
+    </div>
+
+    <div class="cards-list">
+        <div class="card">
+            <div class="card_image">
+                <img src="https://i.redd.it/b3esnz5ra34y.jpg" alt="Card Image">
+            </div>
+            <div class="card_title title-white">
+                <p>Card Title</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card_image">
+                <img src="we.png" alt="Card Image">
+            </div>
+            <div class="card_title title-white">
+                <p>Card Title</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card_image">
+                <img src="https://media.giphy.com/media/10SvWCbt1ytWCc/giphy.gif" alt="Card Image">
+            </div>
+            <div class="card_title">
+                <p>
+<!-- Card Title -->
+</div>
+</div>
+
+<div class="card">
+    <div class="card_image">
+        <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" alt="Card Image">
+    </div>
+    <div class="card_title title-black">
+        <p>Card Title</p>
+    </div>
+</div>
+</div>
+
+<!-- Why Choose Us Section -->
+<div class="whyus">
+<h1>Why Choose Us</h1>
+</div>
+
+<!-- Game Section -->
+<section class="game-section">
+<div class="scrolling-container">
+    <div class="scrolling-content" id="scrolling-content">
+        <div class="item active"
+            style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg');">
+        </div>
+        <div class="item"
+            style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/winter-3.jpg');">
+        </div>
+        <div class="item"
+            style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/rdr-2.jpg');">
+        </div>
+        <div class="item"
+            style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg');">
+        </div>
+        <div class="item"
+            style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/fortnite.jpg');">
+        </div>
+        <div class="item"
+            style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/far-cry-5.jpg');">
+        </div>
+    </div>
+</div>
+</section>
+
+<script>
+function duplicateContent() {
+    const scrollingContent = document.getElementById('scrolling-content');
+    const items = Array.from(scrollingContent.children); // Get all items
+    items.forEach(item => {
+        const clone = item.cloneNode(true); // Clone each item
+        scrollingContent.appendChild(clone); // Append cloned item
+    });
+}
+
+function handleParallax() {
+    const scrolled = window.scrollY;
+    const parallaxBack = document.querySelector('.parallax-back');
+    const parallaxFront = document.querySelector('.parallax-front');
+    const parallaxMoon = document.querySelector('.parallax-moon');
+    const parallaxClouds = document.querySelector('.parallax-clouds');
+    const heroText = document.querySelector('.hero-text');
+    const descriptionText = document.querySelector('.description-text');
+
+    parallaxBack.style.transform = `translateY(${scrolled * 0.3}px)`;
+    parallaxFront.style.transform = `translateY(${scrolled * -0.1}px) scale(${1.2 - (scrolled * -0.0002)})`;
+    heroText.style.transform = `translateY(${scrolled * 0.6}px)`;
+    descriptionText.style.transform = `translateY(${scrolled * 0.5}px)`;
+    parallaxMoon.style.transform = `translateY(${100 + scrolled * 0.3}px)`;
+    parallaxClouds.style.transform = `translateY(${scrolled * 0.4}px)`;
+
+    requestAnimationFrame(handleParallax);
+}
+
+duplicateContent(); // Duplicate content for seamless scroll
+handleParallax(); // Handle parallax effect on scroll
+</script>
+
+</body>
+
+</html>

@@ -1,520 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozmoh Pixel</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>GYM</title>
+
     <style>
-        @font-face {
-            font-family: 'Future-earth';
-            src: url('https://cozmohpixel.com/pixel/fonts/future-earth.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        .parallax-container {
-            position: relative;
-            height: 100vh;
-            overflow: hidden !important;
-        }
-
-        .parallax {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            will-change: transform;
-        }
-
-        .parallax-back {
-            background-image: url('https://cozmohpixel.com/pixel/assets/purple_bg.png');
-        }
-
-        .parallax-front {
-            background-image: url('https://cozmohpixel.com/pixel/assets/mountains.png');
-            transform: translateZ(-0.1px) scale(1.2);
-            z-index: 30;
-        }
-
-        .parallax-moon {
-            background-image: url('https://cozmohpixel.com/pixel/assets/glow-moon.png');
-        }
-
-        .parallax-clouds {
-            background-image: url('https://cozmohpixel.com/pixel/assets/clouds.png');
-        }
-
-        .overlay {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            color: white;
-            height: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .hero-text {
-            font-family: 'Future-earth', sans-serif;
-            font-size: 13vh;
-            font-weight: 800;
-            line-height: 0.9;
-        }
-
-        .description-text {
-            font-size: 3vh;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .cards-list {
-            z-index: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .card {
-            width: 200px;
-            height: 200px;
-            margin: 30px;
-            border-radius: 40px;
-            box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
-            cursor: pointer;
-            transition: 0.4s;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .card .card_image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 40px;
-        }
-
-        .card_title {
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 8px 0;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            border-radius: 0 0 40px 40px;
-            font-family: sans-serif;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .card:hover {
-            transform: scale(0.9, 0.9);
-            box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25), -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
-        }
-
-        .title-white {
-            color: white;
-        }
-
-        .title-black {
-            color: black;
-        }
-
-        .game-section {
-            width: 100%;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: rotate(-13deg);
-            transform-origin: top left;
-            position: relative;
-            top: 10em;
-            margin-top: 50px;
-        }
-
-        .scrolling-container {
-            display: flex;
-            overflow-x: hidden;
-            white-space: nowrap;
-            width: 100vw;
-            cursor: grab;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .scrolling-content {
-            display: flex;
-            animation: scroll 40s linear infinite;
-            width: 200%;
-        }
-
-        .item {
-            margin: 0 15px;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            background: #343434 no-repeat center center / cover;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s ease-in-out;
-            cursor: pointer;
-        }
-
-        .item.active {
-            width: 250px;
-            box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
-        }
-
-        .item:after {
-            content: "";
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            left: 0;
-            top: 0;
-            background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-        }
-
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        @media all and (max-width: 768px) {
-            .cards-list {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .card {
-                margin: 20px 0;
-            }
-
-            .game-section {
-                top: 0;
-                margin-top: 20px;
-                height: auto;
-                transform: none;
-                overflow: hidden;
-                padding: 20px 0;
-            }
-
-            .scrolling-container {
-                width: auto;
-                overflow-x: hidden !important;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-
-            .scrolling-container::-webkit-scrollbar {
-                display: none;
-            }
-        }
-
-        .container {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: #6b7280;
-            margin-bottom: 2rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        .card-0 {
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-1 {
-            background-color: #374151;
-            color: #ffffff;
-        }
-
-        .card-2 {
-            background-color: #000000;
-            color: #ffffff;
-        }
-
-        .card-3 {
-            background-color: #fbbf24;
-            color: #000000;
-        }
-
-        .card-4 {
-            background-color: #f3f4f6;
-            color: #000000;
-        }
-
-        .image-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100px;
-        }
-
-        .image-container img {
-            max-height: 100%;
-        }
-        /* website*/
-                .container {
-            max-width: 1200px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 40px;
-        }
-        .text-section {
-            flex: 1;
-            padding: 20px;
-        }
-        .image-section {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .image-section img {
-            width: 50%;
-            max-width: 300px;
-            position: absolute;
-            animation: float 4s ease-in-out infinite;
-        }
-        .image-section img:nth-child(2) {
-            left: 50px;
-            animation-delay: 1s;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
+  @import 'https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i';
     </style>
-</head>
-
-<body>
-    <!-- Hero Section -->
-    <section class="parallax-container">
-        <div class="parallax parallax-back"></div>
-        <div class="parallax parallax-moon"></div>
-        <div class="parallax parallax-clouds"></div>
-        <div class="parallax parallax-front"></div>
-        <div class="overlay">
-            <h1 class="hero-text">Website<br>DEVELOPMENT</h1>
-            <p class="description-text">Technology made accessible to Businesses</p>
-        </div>
-    </section>
-
-    <!-- Card Section -->
-    <div class="wordpress">
-        <h1 class="WP">Wordpress</h1>
+  </head>
+  <body>
+  <!-- body -->
+    <div id="main">
+  <div class="row firstrow">
+    <div class="container firstcontainer">
+      <div class="col-md-7 firstrowtext">
+        <h3 class="subheading">All eyes on</h3>
+        <h1 id="title">Hidilyn Diaz</h1>
+        <br>
+        <h1 class="emdash">–</h1>  
+      </div>
+      <div class="col-md-8 col-md-offset-4 featurepic" id="img-div">
+            <img src="https://raw.githubusercontent.com/rcdjasmin/hidilyndiaz/master/hidilyn-mono.png" class="imageres" id="image">
+            <div class="col-md-8 col-md-offset-1 caption"><p id="img-caption">The first female, the first weightlifter, and the first Mindanao-based athlete to enter the Olympic podium</p></div>
+      </div>
     </div>
-
-    <div class="cards-list">
-        <div class="card">
-            <div class="card_image">
-                <img src="https://i.redd.it/b3esnz5ra34y.jpg" alt="Card Image">
-            </div>
-            <div class="card_title title-white">
-                <p>Card Title</p>
-            </div>
+    <!--Diamond-->
+    <div class="diamond"></div>  
+  </div>
+  
+  <div class="row secondrow">
+    <div class="col-md-12">
+      <div class="container relcontainer">
+        <div class="col-md-8">
+        <p class="pWhite" id="tribute-info">
+        Hidilyn Diaz brought glory to the country after ending a 20-year medal drought in the Olympics.
+  She had represented the country in the Olympics in 2008 and 2012, before finally breaking through with a silver medal in Rio de Janeiro.<br><br>
+  
+  She also became the first medal winner from the Philippines since boxer Onyok Velasco's silver medal conquest in the 1996 edition in Atlanta. This is also the first time a medal was won for the Philippines outside of boxing since 1936.</p>
         </div>
-
-        <div class="card">
-            <div class="card_image">
-                <img src="we.png" alt="Card Image">
-            </div>
-            <div class="card_title title-white">
-                <p>Card Title</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card_image">
-                <img src="https://media.giphy.com/media/10SvWCbt1ytWCc/giphy.gif" alt="Card Image">
-            </div>
-            <div class="card_title title-white">
-                <p>Card Title</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card_image">
-                <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" alt="Card Image">
-            </div>
-            <div class="card_title title-black">
-                <p>Card Title</p>
-            </div>
-        </div>
+        <img src='https://raw.githubusercontent.com/rcdjasmin/hidilyndiaz/master/hidilyn-lifting.png' class="hidilynlift">
+      </div>
     </div>
-
-    <!-- Why Choose Us Section -->
-    <div class="whyus">
-        <h1>Why Choose Us</h1>
+  </div>
+  <div class="row thirdrow" id="pick-three">
+    <h3 class="thirdrowtitle">Hidilyn by the Numbers</h4><br>
+    <div class="container thirdcontainer">
+      <div class="col-md-4 stats">
+        <h2 class="count">25</h2><br>
+        <p>years old</p>
+      </div>
+      <div class="col-md-4 stats">
+        <h2 class="count">07</h2><br>
+        <p style="margin-right:8px;">medals</p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="count">14</h2><br>
+        <p>years of<br>training</p>
+      </div>
     </div>
-
-    <!-- Game Section -->
-    <section class="game-section">
-        <div class="scrolling-container">
-            <div class="scrolling-content" id="scrolling-content">
-                <div class="item active"
-                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg');">
-                </div>
-                <div class="item"
-                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/winter-3.jpg');">
-                </div>
-                <div class="item"
-                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/rdr-2.jpg');">
-                </div>
-                <div class="item"
-                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg');">
-                </div>
-                <div class="item"
-                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/fortnite.jpg');">
-                </div>
-                <div class="item"
-                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/far-cry-5.jpg');">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why a Website Section -->
-    <h1> why a website?</h1>
+  </div>
+    
+  <div class="row fourthrow">
     <div class="container">
-        <div class="grid">
-            <div class="card-0 card-1">
-                <p>AFFORDABLE</p>
-                <p style="font-size: 1.5rem; font-weight: bold;">Your customers will notice you.</p>
-                <div class="image-container">
-                    <img src="https://placehold.co/100" alt="Placeholder Image">
-                </div>
-            </div>
-            <div class="card-0 card-2">
-                <p>AFFORDABLE</p>
-                <p style="font-size: 1.5rem; font-weight: bold;">Your customers will notice you.</p>
-            </div>
-            <div class="card-0 card-3">
-                <p>Your customers will notice you.</p>
-            </div>
-            <div class="card-0 card-4">
-                <p>Your customers will notice you.</p>
-                <div class="image-container">
-                    <img src="https://placehold.co/100" alt="Placeholder Image">
-                </div>
-            </div>
-        </div>
+      <p>When asked what she plans to do with her P5 million incentive:</p>
+      <div class="col-md-6 col-md-offset-3">
+      <h3>“I want to build a gym for the children. I also want them to dream. I also want them to be Olympians, to be medalists.” </h3>
+        <br>
+      <a href="https://en.wikipedia.org/wiki/Hidilyn_Diaz" target="_blank">Learn more about Hidilyn</a>
+      </div>
     </div>
-    <!-- websites devlopment  -->
-    <div class="container">
-        <div class="text-section">
-            <p class="text-gray-500 text-sm">Website Development</p>
-            <h1 class="text-4xl font-bold mt-2">Your customers will notice you.</h1>
-            <p class="mt-4 text-gray-600">Add a little bit of body text</p>
-            <button class="button mt-4">Get Started</button>
-        </div>
-        <div class="image-section">
-            <img src="https://ph-test-11.slatic.net/p/94bb4dd53d1f6e7319961f2b49796af0.jpg" alt="Mobile Mockup 2">
-        </div>
+  </div>
+  <div class="row firstrow">
+    <div class="fifthrow container">
+      <h4>Sources:</h4>
+  <ul style="list-style: none; padding-left: 0; line-height: 2.3;">
+    <li><a href="http://www.gmanetwork.com/news/story/577293/sports/othersports/hidilyn-diaz-a-weightlifter-since-age-11#sthash.LbLb88wJ.dpuf" target="_blank" id="tribute-link">Hidilyn Diaz a weightlifter since age 11 - GMA Network</a></li>
+  
+  <li><a href="http://www.dugout.ph/2016/08/hidilyn-diaz-ends-pinoy-olympic-medal-drought-takes-silver.html" target="_blank">Hidilyn Diaz ends Pinoy Olympic medal drought, takes silver in weightlifting</a></li>
+  
+  <li><a href="http://sports.inquirer.net/219132/hidilyn-diaz-i-almost-quit-weightlifting-before-rio-olympics#ixzz4HNUEMPJG" target="_blank">Hidilyn Diaz:  I almost quit weightlifting before Rio Olympics</a></li>
+      </ul>
     </div>
-
-</body>
-
-<script>
-    function duplicateContent() {
-        const scrollingContent = document.getElementById('scrolling-content');
-        const items = Array.from(scrollingContent.children); // Get all items
-        items.forEach(item => {
-            const clone = item.cloneNode(true); // Clone each item
-            scrollingContent.appendChild(clone); // Append cloned item
-        });
-    }
-
-    function handleParallax() {
-        const scrolled = window.scrollY;
-        const parallaxBack = document.querySelector('.parallax-back');
-        const parallaxFront = document.querySelector('.parallax-front');
-        const parallaxMoon = document.querySelector('.parallax-moon');
-        const parallaxClouds = document.querySelector('.parallax-clouds');
-        const heroText = document.querySelector('.hero-text');
-        const descriptionText = document.querySelector('.description-text');
-
-        parallaxBack.style.transform = `translateY(${scrolled * 0.3}px)`;
-        parallaxFront.style.transform = `translateY(${scrolled * -0.1}px) scale(${1.2 - (scrolled * -0.0002)})`;
-        heroText.style.transform = `translateY(${scrolled * 0.6}px)`;
-        descriptionText.style.transform = `translateY(${scrolled * 0.5}px)`;
-        parallaxMoon.style.transform = `translateY(${100 + scrolled * 0.3}px)`;
-        parallaxClouds.style.transform = `translateY(${scrolled * 0.4}px)`;
-
-        requestAnimationFrame(handleParallax);
-    }
-
-    duplicateContent(); // Duplicate content for seamless scroll
-    handleParallax(); // Handle parallax effect on scroll
-</script>
+  </div>
+  <div class="row footer">
+    <p>Design & Development – <a href="http://www.celenajasmin.com" target="_blank">Celena Jasmin</a></p>
+    </div>
+    </div>
+  </body>
 </html>

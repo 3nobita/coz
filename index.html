@@ -305,6 +305,55 @@
         .image-container img {
             max-height: 100%;
         }
+        /* website*/
+                .container {
+            max-width: 1200px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 40px;
+        }
+        .text-section {
+            flex: 1;
+            padding: 20px;
+        }
+        .image-section {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .image-section img {
+            width: 50%;
+            max-width: 300px;
+            position: absolute;
+            animation: float 4s ease-in-out infinite;
+        }
+        .image-section img:nth-child(2) {
+            left: 50px;
+            animation-delay: 1s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
     </style>
 </head>
 
@@ -373,26 +422,31 @@
     <section class="game-section">
         <div class="scrolling-container">
             <div class="scrolling-content" id="scrolling-content">
-                <div class="item active" style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg');">
+                <div class="item active"
+                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg');">
                 </div>
-                <div class="item" style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/winter-3.jpg');">
+                <div class="item"
+                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/winter-3.jpg');">
                 </div>
-                <div class="item" style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/rdr-2.jpg');">
+                <div class="item"
+                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/rdr-2.jpg');">
                 </div>
-                <div class="item" style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg');">
+                <div class="item"
+                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg');">
                 </div>
-                <div class="item" style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/fortnite.jpg');">
+                <div class="item"
+                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/fortnite.jpg');">
                 </div>
-                <div class="item" style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/far-cry-5.jpg');">
+                <div class="item"
+                    style="background-image: url('https://www.yudiz.com/codepen/expandable-animated-card-slider/far-cry-5.jpg');">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Why a Website Section -->
+    <h1> why a website?</h1>
     <div class="container">
-        <h1 class="title">why a <span style="color: #000000;">website?</span></h1>
-        <p class="subtitle">Add a little bit of body text</p>
         <div class="grid">
             <div class="card-0 card-1">
                 <p>AFFORDABLE</p>
@@ -416,39 +470,51 @@
             </div>
         </div>
     </div>
+    <!-- websites devlopment  -->
+    <div class="container">
+        <div class="text-section">
+            <p class="text-gray-500 text-sm">Website Development</p>
+            <h1 class="text-4xl font-bold mt-2">Your customers will notice you.</h1>
+            <p class="mt-4 text-gray-600">Add a little bit of body text</p>
+            <button class="button mt-4">Get Started</button>
+        </div>
+        <div class="image-section">
+            <img src="https://ph-test-11.slatic.net/p/94bb4dd53d1f6e7319961f2b49796af0.jpg" alt="Mobile Mockup 2">
+        </div>
+    </div>
 
-    <script>
-        function duplicateContent() {
-            const scrollingContent = document.getElementById('scrolling-content');
-            const items = Array.from(scrollingContent.children); // Get all items
-            items.forEach(item => {
-                const clone = item.cloneNode(true); // Clone each item
-                scrollingContent.appendChild(clone); // Append cloned item
-            });
-        }
-
-        function handleParallax() {
-            const scrolled = window.scrollY;
-            const parallaxBack = document.querySelector('.parallax-back');
-            const parallaxFront = document.querySelector('.parallax-front');
-            const parallaxMoon = document.querySelector('.parallax-moon');
-            const parallaxClouds = document.querySelector('.parallax-clouds');
-            const heroText = document.querySelector('.hero-text');
-            const descriptionText = document.querySelector('.description-text');
-
-            parallaxBack.style.transform = `translateY(${scrolled * 0.3}px)`;
-            parallaxFront.style.transform = `translateY(${scrolled * -0.1}px) scale(${1.2 - (scrolled * -0.0002)})`;
-            heroText.style.transform = `translateY(${scrolled * 0.6}px)`;
-            descriptionText.style.transform = `translateY(${scrolled * 0.5}px)`;
-            parallaxMoon.style.transform = `translateY(${100 + scrolled * 0.3}px)`;
-            parallaxClouds.style.transform = `translateY(${scrolled * 0.4}px)`;
-
-            requestAnimationFrame(handleParallax);
-        }
-
-        duplicateContent(); // Duplicate content for seamless scroll
-        handleParallax(); // Handle parallax effect on scroll
-    </script>
 </body>
 
+<script>
+    function duplicateContent() {
+        const scrollingContent = document.getElementById('scrolling-content');
+        const items = Array.from(scrollingContent.children); // Get all items
+        items.forEach(item => {
+            const clone = item.cloneNode(true); // Clone each item
+            scrollingContent.appendChild(clone); // Append cloned item
+        });
+    }
+
+    function handleParallax() {
+        const scrolled = window.scrollY;
+        const parallaxBack = document.querySelector('.parallax-back');
+        const parallaxFront = document.querySelector('.parallax-front');
+        const parallaxMoon = document.querySelector('.parallax-moon');
+        const parallaxClouds = document.querySelector('.parallax-clouds');
+        const heroText = document.querySelector('.hero-text');
+        const descriptionText = document.querySelector('.description-text');
+
+        parallaxBack.style.transform = `translateY(${scrolled * 0.3}px)`;
+        parallaxFront.style.transform = `translateY(${scrolled * -0.1}px) scale(${1.2 - (scrolled * -0.0002)})`;
+        heroText.style.transform = `translateY(${scrolled * 0.6}px)`;
+        descriptionText.style.transform = `translateY(${scrolled * 0.5}px)`;
+        parallaxMoon.style.transform = `translateY(${100 + scrolled * 0.3}px)`;
+        parallaxClouds.style.transform = `translateY(${scrolled * 0.4}px)`;
+
+        requestAnimationFrame(handleParallax);
+    }
+
+    duplicateContent(); // Duplicate content for seamless scroll
+    handleParallax(); // Handle parallax effect on scroll
+</script>
 </html>
